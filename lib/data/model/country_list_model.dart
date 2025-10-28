@@ -5,17 +5,17 @@ class CountryListModel {
   CountryListModel({this.flags, this.name});
 
   CountryListModel.fromJson(Map<String, dynamic> json) {
-    flags = json['flags'] != null ? new Flags.fromJson(json['flags']) : null;
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    flags = json['flags'] != null ? Flags.fromJson(json['flags']) : null;
+    name = json['name'] != null ? Name.fromJson(json['name']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.flags != null) {
-      data['flags'] = this.flags!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (flags != null) {
+      data['flags'] = flags!.toJson();
     }
-    if (this.name != null) {
-      data['name'] = this.name!.toJson();
+    if (name != null) {
+      data['name'] = name!.toJson();
     }
     return data;
   }
@@ -35,10 +35,10 @@ class Flags {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['png'] = this.png;
-    data['svg'] = this.svg;
-    data['alt'] = this.alt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['png'] = png;
+    data['svg'] = svg;
+    data['alt'] = alt;
     return data;
   }
 }
@@ -54,16 +54,16 @@ class Name {
     common = json['common'];
     official = json['official'];
     nativeName = json['nativeName'] != null
-        ? new NativeName.fromJson(json['nativeName'])
+        ? NativeName.fromJson(json['nativeName'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['common'] = this.common;
-    data['official'] = this.official;
-    if (this.nativeName != null) {
-      data['nativeName'] = this.nativeName!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['common'] = common;
+    data['official'] = official;
+    if (nativeName != null) {
+      data['nativeName'] = nativeName!.toJson();
     }
     return data;
   }
@@ -75,13 +75,13 @@ class NativeName {
   NativeName({this.ron});
 
   NativeName.fromJson(Map<String, dynamic> json) {
-    ron = json['ron'] != null ? new Ron.fromJson(json['ron']) : null;
+    ron = json['ron'] != null ? Ron.fromJson(json['ron']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.ron != null) {
-      data['ron'] = this.ron!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (ron != null) {
+      data['ron'] = ron!.toJson();
     }
     return data;
   }
@@ -99,9 +99,9 @@ class Ron {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['official'] = this.official;
-    data['common'] = this.common;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['official'] = official;
+    data['common'] = common;
     return data;
   }
 }
