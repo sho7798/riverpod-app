@@ -14,6 +14,7 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class _HomeState extends ConsumerState<Home> {
+  /// Providers are declared globally and specify how to create a state
   final countryNotifierProvider =
       NotifierProvider<CountryListNotifier, CountryListState>(() {
         return CountryListNotifier();
@@ -30,24 +31,32 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // The read method is a utility to read a provider without listening to it
     countryListNotifier = ref.read(countryNotifierProvider.notifier);
+
+    // Consumer is a builder widget that allows you to read providers.
     final countryListState = ref.watch(countryNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text('Country List'), centerTitle: true),
-      body: switch (countryListState) {
-        CountryListLoading() => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        CountryListSuccess(countryList: List<CountryListModel> countryList) =>
-          CountryListView(countryList: countryList),
-        CountryListFailed(errorMessage: String errorMessage) => FailedWidget(
-          errorMessage: errorMessage,
-          tryAgain: () {
-            countryListNotifier?.getCountryList();
+      body:
+          // useful in switch statements because sealed class
+          switch (countryListState) {
+            CountryListLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            CountryListSuccess(
+              countryList: List<CountryListModel> countryList,
+            ) =>
+              CountryListView(countryList: countryList),
+            CountryListFailed(errorMessage: String errorMessage) =>
+              FailedWidget(
+                errorMessage: errorMessage,
+                tryAgain: () {
+                  countryListNotifier?.getCountryList();
+                },
+              ),
           },
-        ),
-      },
     );
   }
 }

@@ -14,7 +14,9 @@ class CountryListView extends StatelessWidget {
         final String? flagLink = countryModel.flags?.png;
         return InkWell(
           onTap: () {
-            context.push("/name/${countryModel.name?.common}");
+            context.push(
+              "/detail/${countryModel.name?.common}?official=${countryModel.name?.official}",
+            );
           },
           child: Card(
             child: Column(
@@ -26,7 +28,15 @@ class CountryListView extends StatelessWidget {
                     children: [
                       if (flagLink != null)
                         Image.network(flagLink, width: 100, height: 100),
-                      Text(countryModel.name?.common ?? ""),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: Text(
+                          textAlign: TextAlign.right,
+                          countryModel.name?.common ?? "",
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 ),

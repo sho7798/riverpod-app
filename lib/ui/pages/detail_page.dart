@@ -7,9 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../state/country_detail_state/country_detail_notifier.dart';
 
 class CountryDetailPage extends ConsumerStatefulWidget {
-  const CountryDetailPage({super.key, required this.name});
+  const CountryDetailPage({
+    super.key,
+    required this.countryName,
+    required this.official,
+  });
 
-  final String name;
+  final String countryName;
+  final String official;
 
   @override
   ConsumerState<CountryDetailPage> createState() => _CountryDetailPageState();
@@ -30,7 +35,7 @@ class _CountryDetailPageState extends ConsumerState<CountryDetailPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref
           .read(countryDetailProvider.notifier)
-          .getCountry(widget.name.toLowerCase());
+          .getCountry(widget.countryName.toLowerCase());
     });
   }
 
@@ -47,7 +52,7 @@ class _CountryDetailPageState extends ConsumerState<CountryDetailPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.name)),
+      appBar: AppBar(title: Text(widget.countryName)),
       body: switch (countryDetailState) {
         CountryDetailLoading() => Center(child: CircularProgressIndicator()),
 

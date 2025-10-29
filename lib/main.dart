@@ -14,34 +14,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: GoRouter(
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, routeState) {
-              return Home();
-            },
-          ),
-          GoRoute(
-            path: '/name/:name',
-            builder: (context, routeState) {
-              String? name = routeState.pathParameters['name'] ?? "";
-              return CountryDetailPage(name: name);
-            },
-          ),
-        ],
-        errorBuilder: (context, state) {
-          return Material(
-            child: FailedWidget(
-              errorMessage: 'Invalid Route',
-              tryAgain: () {
-                context.go('/');
-              },
-            ),
-          );
+    return MaterialApp.router(routerConfig: goRouter);
+  }
+}
+
+final goRouter = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, routeState) {
+        return Home();
+      },
+    ),
+    GoRoute(
+      path: '/detail/:countryName',
+      builder: (context, routeState) {
+        //passing data (parameters)
+        String? countryName = routeState.pathParameters['countryName'] ?? "";
+        String? official = routeState.uri.queryParameters['official'] ?? "";
+        return CountryDetailPage(countryName: countryName, official: official);
+      },
+    ),
+  ],
+  errorBuilder: (context, state) {
+    return Material(
+      child: FailedWidget(
+        errorMessage: 'Invalid Route',
+        tryAgain: () {
+          context.go('/');
         },
       ),
     );
-  }
-}
+  },
+);
