@@ -1,3 +1,5 @@
+import 'package:app_with_riverpod/app/constant.dart';
+import 'package:app_with_riverpod/presentation/resources/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../data/model/country_list_model.dart';
@@ -5,6 +7,7 @@ import '../../data/model/country_list_model.dart';
 class CountryListView extends StatelessWidget {
   const CountryListView({super.key, required this.countryList});
   final List<CountryListModel> countryList;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -15,7 +18,7 @@ class CountryListView extends StatelessWidget {
         return InkWell(
           onTap: () {
             context.push(
-              "/detail/${countryModel.name?.common}?official=${countryModel.name?.official}",
+              "${Routes.detailRoute}/${countryModel.name?.common}?$official=${countryModel.name?.official}",
             );
           },
           child: Card(

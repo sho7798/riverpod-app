@@ -40,6 +40,7 @@ class _CountryDetailPageState extends ConsumerState<CountryDetailPage> {
   }
 
   @override
+  //calling when change the parent widget
   void didUpdateWidget(covariant CountryDetailPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     getCountryDetail();
